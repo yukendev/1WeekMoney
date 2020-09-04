@@ -1,0 +1,6 @@
+framework module Pods_1WeekMoney {
+  umbrella header "Pods-1WeekMoney-umbrella.h"
+
+  export *
+  module * { export * }
+}
