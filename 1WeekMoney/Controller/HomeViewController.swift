@@ -85,7 +85,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "date", for: indexPath) as! CustomCell
         
-        cell.selectionStyle = .none
+//        cell.selectionStyle = .none
         
         cell.dayLabel.text = dayArray[indexPath.row]
         cell.moneyLabel.text = allMoneyArray[indexPath.row]
