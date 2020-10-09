@@ -28,6 +28,9 @@ class AddMoneyViewController: UIViewController {
         button.layer.cornerRadius = 5
         container.layer.cornerRadius = 10
         
+        button.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        button.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +69,20 @@ class AddMoneyViewController: UIViewController {
             }
         }
     }
+    
+    @objc func pushButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+           })
+       }
+           
+           
+       @objc func separateButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+               sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+           })
+       }
     
     func showAlert(title: String) {
         let alertController = UIAlertController(title: title, message: "", preferredStyle: .alert)

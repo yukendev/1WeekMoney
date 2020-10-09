@@ -39,6 +39,9 @@ class DateViewController: UIViewController, UITableViewDelegate, UITableViewData
         dateLabel.text = dateLabelText
         dayLabel.text = dayLabelText
         
+        addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +74,20 @@ class DateViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.reloadData()
     }
+    
+    @objc func pushButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+           })
+       }
+           
+           
+       @objc func separateButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+               sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+           })
+       }
     
 
     @IBAction func returnAction(_ sender: Any) {

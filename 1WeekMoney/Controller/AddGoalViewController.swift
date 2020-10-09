@@ -21,8 +21,23 @@ class AddGoalViewController: UIViewController {
         button.layer.cornerRadius = 5
         container.layer.cornerRadius = 10
         
+        button.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        button.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
     }
     
+    @objc func pushButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+           })
+       }
+           
+           
+       @objc func separateButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+               sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+           })
+       }
     
     @IBAction func addGoalAction(_ sender: Any) {
         print("beforeAction")

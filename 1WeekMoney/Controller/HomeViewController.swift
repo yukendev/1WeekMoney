@@ -46,7 +46,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "date")
         headView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height*96/896)
         
+//        let bottomBorder = CALayer()
+//        bottomBorder.frame = CGRect(x: 0, y: 0, width: headView.frame.width, height: 5.0)
+//        bottomBorder.backgroundColor = UIColor.black.cgColor
+//        
+//        headView.layer.addSublayer(bottomBorder)
         
+        goalMoneyButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
+        goalMoneyButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
         
         
 
@@ -73,6 +80,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    @objc func pushButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.1, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+           })
+       }
+           
+           
+       @objc func separateButton_Animation(_ sender: UIButton){
+           UIView.animate(withDuration: 0.2, animations:{ () -> Void in
+               sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+               sender.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+           })
+       }
+    
     @IBAction func goalMoneyAction(_ sender: Any) {
         performSegue(withIdentifier: "addGoalMoney", sender: nil)
     }
@@ -86,7 +107,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "date", for: indexPath) as! CustomCell
         
 //        cell.selectionStyle = .none
-        
+        if getDay() == dayArray[indexPath.row] {
+            cell.cellContainer.backgroundColor = UIColor.orange
+//            cell.cellContainer.alpha = 0.8
+        }
         cell.dayLabel.text = dayArray[indexPath.row]
         cell.moneyLabel.text = allMoneyArray[indexPath.row]
         cell.dateLabel.text = dateArray[indexPath.row]
@@ -177,6 +201,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         print(dateArray)
+    }
+    
+    func getDay()-> String {
+        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "ja_JP")
+//        dateFormatter.timeZone = TimeZone(identifier: "Asia/Tokyo")
+        dateFormatter.dateFormat = "EE"
+        
+        let today = dateFormatter.string(from: Date())
+        
+        return today
     }
     
     func setAllMoneyArray() {
