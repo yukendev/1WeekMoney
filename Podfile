@@ -8,5 +8,7 @@ target '1WeekMoney' do
   # Pods for 1WeekMoney
 
 pod 'RealmSwift'
+	
+pod 'Google-Mobile-Ads-SDK'
 
 end

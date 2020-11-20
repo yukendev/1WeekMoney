@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GADBannerViewDelegate {
     
     
     @IBOutlet weak var goalMoneyButton: UIButton!
@@ -46,15 +47,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.register(UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "date")
         headView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height*96/896)
         
-//        let bottomBorder = CALayer()
-//        bottomBorder.frame = CGRect(x: 0, y: 0, width: headView.frame.width, height: 5.0)
-//        bottomBorder.backgroundColor = UIColor.black.cgColor
-//        
-//        headView.layer.addSublayer(bottomBorder)
-        
         goalMoneyButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
         goalMoneyButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
         
+        
+        let gadBannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        gadBannerView.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 50)
+        gadBannerView.adUnitID = "ca-app-pub-7065554389714042/1081367987"
+        gadBannerView.rootViewController = self
+        
+        let request = GADRequest()
+        gadBannerView.load(request)
+        
+        self.view.addSubview(gadBannerView)
         
 
     }
@@ -295,4 +301,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return aveMoney
     }
 
+  
+    
 }

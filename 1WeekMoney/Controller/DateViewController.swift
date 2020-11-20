@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
-class DateViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DateViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GADBannerViewDelegate {
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -42,6 +43,17 @@ class DateViewController: UIViewController, UITableViewDelegate, UITableViewData
         addButton.addTarget(self, action: #selector(self.pushButton_Animation(_:)), for: .touchDown)
         addButton.addTarget(self, action: #selector(self.separateButton_Animation(_:)), for: .touchUpInside)
         
+        let gadBannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        gadBannerView.center = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height - 50)
+        gadBannerView.adUnitID = "ca-app-pub-7065554389714042/1081367987"
+        gadBannerView.rootViewController = self
+        
+        let request = GADRequest()
+        gadBannerView.load(request)
+        
+        self.view.addSubview(gadBannerView)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,15 +62,9 @@ class DateViewController: UIViewController, UITableViewDelegate, UITableViewData
         contentList.removeAll()
         moneyList.removeAll()
         uuidList.removeAll()
-        
-//        var config = Realm.Configuration()
-//        config.deleteRealmIfMigrationNeeded = true
-//        let realm = try! Realm(configuration: config)
 
         let realm = try! Realm()
         let list = realm.objects(MoneyList.self)
-        print("これが俺の忍道だ")
-        print(Realm.Configuration.defaultConfiguration.fileURL)
 
         for listData in list {
             if listData.date == dateLabelText {
